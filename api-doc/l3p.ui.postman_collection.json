@@ -1,0 +1,590 @@
+{
+	"info": {
+		"_postman_id": "e87490c8-d77b-4ac4-9d4d-9e8bb871a219",
+		"name": "Atmosphere - L3P UI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "LOGIN as admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b8b396eb-9ab8-4738-b284-64d604978545",
+						"exec": [
+							"pm.environment.set(\"token\", JSON.parse(responseBody).token);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\" : \"admin\",\n\t\"password\" : \"admin\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/v1/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET contents for \"Type\" drop-down list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "164db961-624c-4869-8013-891731c7d870",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/v1/tags?filter={\"tags\": \"UI-Type\"}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"tags"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "{\"tags\": \"UI-Type\"}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET contents for \"Condition\" drop-down list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "164db961-624c-4869-8013-891731c7d870",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/v1/tags?filter={\"tags\": \"UI-Condition\"}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"tags"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "{\"tags\": \"UI-Condition\"}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET contents for \"Road Type\" drop-down list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "164db961-624c-4869-8013-891731c7d870",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/v1/tags?filter={\"tags\": \"UI-RoadType\"}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"tags"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "{\"tags\": \"UI-RoadType\"}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET contents for \"Driver Type\" drop-down list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "164db961-624c-4869-8013-891731c7d870",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/v1/tags?filter={\"tags\": \"UI-DriverType\"}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"tags"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "{\"tags\": \"UI-DriverType\"}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET contents for \"Scenario Type\" drop-down list (for \"Type\" = \"Datapoint\")",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "164db961-624c-4869-8013-891731c7d870",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/v1/constraints?filter={\"element1\":\"Datapoint\",\"tags\": \"UI-Type-ScenarioType\"}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"constraints"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "{\"element1\":\"Datapoint\",\"tags\": \"UI-Type-ScenarioType\"}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET contents for \"Scenario Type\" drop-down list (for \"Type\" = \"ScenarioInstance_PI\")",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "164db961-624c-4869-8013-891731c7d870",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/v1/constraints?filter={\"element1\":\"ScenarioInstance_PI\",\"tags\": \"UI-Type-ScenarioType\"}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"constraints"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "{\"element1\":\"ScenarioInstance_PI\",\"tags\": \"UI-Type-ScenarioType\"}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET contents for \"Scenario Type\" drop-down list (for \"Type\" = \"ScenarioSpecific_Trip_PI\")",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "164db961-624c-4869-8013-891731c7d870",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/v1/constraints?filter={\"element1\":\"ScenarioSpecific_Trip_PI\",\"tags\": \"UI-Type-ScenarioType\"}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"constraints"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "{\"element1\":\"ScenarioSpecific_Trip_PI\",\"tags\": \"UI-Type-ScenarioType\"}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET contents for \"Scenario Type\" drop-down list (for \"Type\" = \"Trip_PI\")",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "164db961-624c-4869-8013-891731c7d870",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/v1/constraints?filter={\"element1\":\"Trip_PI\",\"tags\": \"UI-Type-ScenarioType\"}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"constraints"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "{\"element1\":\"Trip_PI\",\"tags\": \"UI-Type-ScenarioType\"}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET filtered Measurements (Type==Trip_PI)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "164db961-624c-4869-8013-891731c7d870",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b2945f93-cd56-4586-82c4-eb888a35d39b",
+						"exec": [
+							"pm.environment.set('condition', 'Treatment');",
+							"pm.environment.set('roadtype', 'Motorway');",
+							"pm.environment.set('drivertype', 'Trained');",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/v1/measurements?filter={\"feature\": \"Trip_PI\", \"tags\": { \"$all\":  [\"{{condition}}\",\"{{roadtype}}\",\"{{drivertype}}\"] } }",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"measurements"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "{\"feature\": \"Trip_PI\", \"tags\": { \"$all\":  [\"{{condition}}\",\"{{roadtype}}\",\"{{drivertype}}\"] } }"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET filtered Measurements (Type==Datapoint)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "164db961-624c-4869-8013-891731c7d870",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b2945f93-cd56-4586-82c4-eb888a35d39b",
+						"exec": [
+							"pm.environment.set('scenariotype', 'Approaching_a_lead_vehicle');",
+							"pm.environment.set('condition', 'Treatment');",
+							"pm.environment.set('roadtype', 'Motorway');",
+							"pm.environment.set('drivertype', 'Trained');",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/v1/measurements?filter={\"feature\": \"{{scenariotype}}\", \"tags\": { \"$all\":  [\"{{condition}}\",\"{{roadtype}}\"] } }",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"measurements"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "{\"feature\": \"{{scenariotype}}\", \"tags\": { \"$all\":  [\"{{condition}}\",\"{{roadtype}}\"] } }"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET filtered Measurements (others)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "164db961-624c-4869-8013-891731c7d870",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b2945f93-cd56-4586-82c4-eb888a35d39b",
+						"exec": [
+							"pm.environment.set('type', 'Approaching_a_lead_vehicle');",
+							"pm.environment.set('scenariotype', 'Approaching_a_lead_vehicle');",
+							"pm.environment.set('condition', 'Treatment');",
+							"pm.environment.set('roadtype', 'Motorway');",
+							"pm.environment.set('drivertype', 'Trained');",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/v1/measurements?filter={\"feature\": \"{{type}}\", \"tags\": { \"$all\":  [\"{{condition}}\",\"{{roadtype}}\",\"{{scenariotype}}\",\"{{drivertype}}\"] } }",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"measurements"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "{\"feature\": \"{{type}}\", \"tags\": { \"$all\":  [\"{{condition}}\",\"{{roadtype}}\",\"{{scenariotype}}\",\"{{drivertype}}\"] } }"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,0 +1,28 @@
+{
+  "name": "api_server",
+  "version": "1.0.0",
+  "description": "classroom attention project",
+  "main": "api.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/akelios47/classroom_attention.git"
+  },
+  "keywords": [
+    "classroom",
+    "attention",
+    "api",
+    "pedagogy",
+    "AI",
+    "analytics",
+    "IoT"
+  ],
+  "author": "Ahmad Kobeissi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akelios47/classroom_attention/issues"
+  },
+  "homepage": "https://github.com/akelios47/classroom_attention#readme"
+}

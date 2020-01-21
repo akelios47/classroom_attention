@@ -1,0 +1,3376 @@
+{
+	"info": {
+		"_postman_id": "34263535-f79c-46a8-bb8d-4a0e2cdfe713",
+		"name": "Atmosphere - Students",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Delucchi",
+			"item": [
+				{
+					"name": "CREATE",
+					"item": [
+						{
+							"name": "LOGIN as SuperAdmin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b8b396eb-9ab8-4738-b284-64d604978545",
+										"exec": [
+											"postman.setEnvironmentVariable(\"token\", JSON.parse(responseBody).token);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\" : \"admin\",\n\t\"password\" : \"admin\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v1/login",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST to reset with demo contents",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7d02614a-551a-49bd-a4ac-a25d3cb5e476",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"demo\", jsonData);",
+											"tests[\"demo = \" + jsonData] = true;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/v1/demo",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"demo"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST the tank thing",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "0b7eff8d-42e7-41d2-843b-ff43801a3062",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "3ffc77c6-991b-44a1-bbbb-db203d7d50c5",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"thing\", jsonData._id);",
+											"tests[\"thing = \" + jsonData._id] = true;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"_id\": \"tank\"\r\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v1/things/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"things",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get tank",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v1/things/{{thing}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"things",
+										"{{thing}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST water-level feature",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "981648d0-4153-4d98-9273-49fbcfd23e04",
+										"exec": [
+											"var current_timestamp = new Date();",
+											"postman.setEnvironmentVariable(\"current_timestamp\", current_timestamp.toISOString());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n\t{\r\n\t    \"_id\": \"water-level\",\r\n\t    \"dimensions\": [\r\n\t    \t{\r\n\t        \t\"name\": \"value\",\r\n\t            \"unit\": \"mm\"\r\n\t        }\r\n\t    ]\r\n\t}\r\n]"
+								},
+								"url": {
+									"raw": "{{url}}/v1/features",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"features"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET water-level feature",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v1/features/water-level",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"features",
+										"water-level"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST tank-level-sensor device",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "0b7eff8d-42e7-41d2-843b-ff43801a3062",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "bf934b5a-b6e0-41dd-bd48-bdf0559f4d97",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"device\", jsonData._id);",
+											"tests[\"device = \" + jsonData._id] = true;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"_id\": \"tank-level-sensor\",\r\n    \"features\": [ \"water-level\" ]\r\n}\r\n"
+								},
+								"url": {
+									"raw": "{{url}}/v1/devices/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"devices",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET tank-level-sensor device",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v1/devices/tank-level-sensor",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"devices",
+										"tank-level-sensor"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST the user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b8b396eb-9ab8-4738-b284-64d604978545",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": " {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\" : \"user-tank-server-username\",\n\t\"password\" : \"user-tank-server-password\",\n\t\"usertype\" : \"regular\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v1/users",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"users"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "API docs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6d2ffb23-3edf-49a5-bd66-1b69012c7ef6",
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"demo\", jsonData);",
+									"tests[\"demo = \" + jsonData] = true;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/swagger.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"swagger.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LOGIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b8b396eb-9ab8-4738-b284-64d604978545",
+								"exec": [
+									"postman.setEnvironmentVariable(\"token\", JSON.parse(responseBody).token);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\" : \"pulse-sensor-user-username\",\n\t\"password\" : \"pulse-sensor-user-password\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/v1/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST a measurement for the tank",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "981648d0-4153-4d98-9273-49fbcfd23e04",
+								"exec": [
+									"var current_timestamp = new Date();",
+									"postman.setEnvironmentVariable(\"current_timestamp\", current_timestamp.toISOString());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n\t\"startDate\": \"{{current_timestamp}}\",\n\t\"endDate\": \"{{current_timestamp}}\",\n\t\"thing\": \"tank\", \n\t\"feature\": \"water-level\",\n\t\"device\": \"tank-level-sensor\", \n\t\"values\": [ { \"value\": [\"300\"] } ] \n}\n"
+						},
+						"url": {
+							"raw": "{{url}}/v1/measurements",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"measurements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET all measurements of tank paginated",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/v1/measurements?filter={\"thing\":\"tank\"}&limit=2&page=1 ",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"measurements"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "{\"thing\":\"tank\"}"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "page",
+									"value": "1 "
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Benzi",
+			"item": [
+				{
+					"name": "CREATE",
+					"item": [
+						{
+							"name": "LOGIN as SuperAdmin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b8b396eb-9ab8-4738-b284-64d604978545",
+										"exec": [
+											"postman.setEnvironmentVariable(\"token\", JSON.parse(responseBody).token);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\" : \"admin\",\n\t\"password\" : \"admin\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v1/login",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST the user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b8b396eb-9ab8-4738-b284-64d604978545",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": " {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\" : \"env-sensor-user-username\",\n\t\"password\" : \"env-sensor-user-password\",\n\t\"usertype\" : \"regular\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v1/users",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "LOGIN",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b8b396eb-9ab8-4738-b284-64d604978545",
+										"exec": [
+											"postman.setEnvironmentVariable(\"token\", JSON.parse(responseBody).token);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\" : \"env-sensor-user-username\",\n\t\"password\" : \"env-sensor-user-password\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v1/login",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST features: C0, NO2, CH4",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "981648d0-4153-4d98-9273-49fbcfd23e04",
+										"exec": [
+											"var current_timestamp = new Date();",
+											"postman.setEnvironmentVariable(\"current_timestamp\", current_timestamp.toISOString());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n\t{\r\n\t    \"_id\": \"C0\",\r\n\t    \"dimensions\": [\r\n\t    \t{\r\n\t        \t\"name\": \"value\",\r\n\t            \"unit\": \"ug/m3\"\r\n\t        }\r\n\t    ]\r\n\t},\r\n\t{\r\n\t    \"_id\": \"NO2\",\r\n\t    \"dimensions\": [\r\n\t    \t{\r\n\t        \t\"name\": \"value\",\r\n\t            \"unit\": \"ug/m3\"\r\n\t        }\r\n\t    ]\r\n\t},\r\n\t{\r\n\t    \"_id\": \"CH4\",\r\n\t    \"dimensions\": [\r\n\t    \t{\r\n\t        \t\"name\": \"value\",\r\n\t            \"unit\": \"ug/m3\"\r\n\t        }\r\n\t    ]\r\n\t}\r\n]"
+								},
+								"url": {
+									"raw": "{{url}}/v1/features",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"features"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET features",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v1/features/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"features",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST env-sensor device",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "0b7eff8d-42e7-41d2-843b-ff43801a3062",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "bf934b5a-b6e0-41dd-bd48-bdf0559f4d97",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"device\", jsonData._id);",
+											"tests[\"device = \" + jsonData._id] = true;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"_id\": \"env-sensor\",\r\n    \"features\": [ \"temperature\", \"light\" ]\r\n}\r\n"
+								},
+								"url": {
+									"raw": "{{url}}/v1/devices/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"devices",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET env-sensor device",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v1/devices/env-sensor",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"devices",
+										"env-sensor"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST the house thing",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "0b7eff8d-42e7-41d2-843b-ff43801a3062",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "3ffc77c6-991b-44a1-bbbb-db203d7d50c5",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"thing\", jsonData._id);",
+											"tests[\"thing = \" + jsonData._id] = true;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"_id\": \"house\"\r\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v1/things/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"things",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get the house thing",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v1/things/{{thing}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"things",
+										"{{thing}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "API docs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6d2ffb23-3edf-49a5-bd66-1b69012c7ef6",
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"demo\", jsonData);",
+									"tests[\"demo = \" + jsonData] = true;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/swagger.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"swagger.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LOGIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b8b396eb-9ab8-4738-b284-64d604978545",
+								"exec": [
+									"postman.setEnvironmentVariable(\"token\", JSON.parse(responseBody).token);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\" : \"env-sensor-user-username\",\n\t\"password\" : \"env-sensor-user-password\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/v1/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST a measurement for house",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "981648d0-4153-4d98-9273-49fbcfd23e04",
+								"exec": [
+									"var current_timestamp = new Date();",
+									"postman.setEnvironmentVariable(\"current_timestamp\", current_timestamp.toISOString());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n\t\"thing\": \"house\", \n\t\"feature\": \"temperature\",\n\t\"device\": \"env-sensor\", \n\t\"values\": [ { \"value\": [\"19\"] } ] \n}\n "
+						},
+						"url": {
+							"raw": "{{url}}/v1/measurements",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"measurements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET all measurements of house paginated",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/v1/measurements?filter={\"thing\":\"house\"}&limit=2&page=1 ",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"measurements"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "{\"thing\":\"house\"}"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "page",
+									"value": "1 "
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Parosi",
+			"item": [
+				{
+					"name": "CREATE",
+					"item": [
+						{
+							"name": "LOGIN as SuperAdmin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b8b396eb-9ab8-4738-b284-64d604978545",
+										"exec": [
+											"postman.setEnvironmentVariable(\"token\", JSON.parse(responseBody).token);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\" : \"admin\",\n\t\"password\" : \"admin\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v1/login",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST the user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b8b396eb-9ab8-4738-b284-64d604978545",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": " {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\" : \"plant-monitor-user-username\",\n\t\"password\" : \"plant-monitor-user-password\",\n\t\"usertype\" : \"provider\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v1/users",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "LOGIN",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b8b396eb-9ab8-4738-b284-64d604978545",
+										"exec": [
+											"postman.setEnvironmentVariable(\"token\", JSON.parse(responseBody).token);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\" : \"plant-monitor-user-username\",\n\t\"password\" : \"plant-monitor-user-password\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v1/login",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST features: temperature, light, moisture",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "981648d0-4153-4d98-9273-49fbcfd23e04",
+										"exec": [
+											"var current_timestamp = new Date();",
+											"postman.setEnvironmentVariable(\"current_timestamp\", current_timestamp.toISOString());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n\t{\r\n\t    \"_id\": \"temperature\",\r\n\t    \"dimensions\": [\r\n\t    \t{\r\n\t        \t\"name\": \"value\",\r\n\t            \"unit\": \"°C\"\r\n\t        }\r\n\t    ]\r\n\t},\r\n\t{\r\n\t    \"_id\": \"light\",\r\n\t    \"dimensions\": [\r\n\t    \t{\r\n\t        \t\"name\": \"value\",\r\n\t            \"unit\": \"%\"\r\n\t        }\r\n\t    ]\r\n\t},\r\n\t{\r\n\t    \"_id\": \"moisture\",\r\n\t    \"dimensions\": [\r\n\t    \t{\r\n\t        \t\"name\": \"moisture\",\r\n\t            \"unit\": \"%\"\r\n\t        }\r\n\t    ]\r\n\t}\r\n]"
+								},
+								"url": {
+									"raw": "{{url}}/v1/features",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"features"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET features",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v1/features/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"features",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST plant-monitor device",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "0b7eff8d-42e7-41d2-843b-ff43801a3062",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "bf934b5a-b6e0-41dd-bd48-bdf0559f4d97",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"device\", jsonData._id);",
+											"tests[\"device = \" + jsonData._id] = true;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"_id\": \"plant-monitor\",\r\n    \"features\": [ \"temperature\", \"light\", \"moisture\" ]\r\n}\r\n"
+								},
+								"url": {
+									"raw": "{{url}}/v1/devices/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"devices",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET plant-monitor device",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v1/devices/plant-monitor",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"devices",
+										"plant-monitor"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST the plant thing",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "0b7eff8d-42e7-41d2-843b-ff43801a3062",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "3ffc77c6-991b-44a1-bbbb-db203d7d50c5",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"thing\", jsonData._id);",
+											"tests[\"thing = \" + jsonData._id] = true;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"_id\": \"plant\"\r\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v1/things/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"things",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get the plant-monito thing",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v1/things/{{thing}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"things",
+										"{{thing}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "API docs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6d2ffb23-3edf-49a5-bd66-1b69012c7ef6",
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"demo\", jsonData);",
+									"tests[\"demo = \" + jsonData] = true;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/swagger.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"swagger.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LOGIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b8b396eb-9ab8-4738-b284-64d604978545",
+								"exec": [
+									"postman.setEnvironmentVariable(\"token\", JSON.parse(responseBody).token);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\" : \"env-sensor-user-username\",\n\t\"password\" : \"env-sensor-user-password\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/v1/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST a measurement for plant",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "981648d0-4153-4d98-9273-49fbcfd23e04",
+								"exec": [
+									"var current_timestamp = new Date();",
+									"postman.setEnvironmentVariable(\"current_timestamp\", current_timestamp.toISOString());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n\t\"startDate\": \"{{current_timestamp}}\",\n\t\"endDate\": \"{{current_timestamp}}\",\n\t\"thing\": \"plant\", \n\t\"feature\": \"moisture\",\n\t\"device\": \"plant-monitor\", \n\t\"values\": [ { \"value\": [\"75\"] } ] \n}\n"
+						},
+						"url": {
+							"raw": "{{url}}/v1/measurements",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"measurements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET all measurements of plant paginated",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/v1/measurements?filter={\"thing\":\"plant\"}&limit=2&page=1 ",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"measurements"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "{\"thing\":\"plant\"}"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "page",
+									"value": "1 "
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Demarzi",
+			"item": [
+				{
+					"name": "CREATE",
+					"item": [
+						{
+							"name": "LOGIN as SuperAdmin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b8b396eb-9ab8-4738-b284-64d604978545",
+										"exec": [
+											"postman.setEnvironmentVariable(\"token\", JSON.parse(responseBody).token);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\" : \"admin\",\n\t\"password\" : \"admin\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v1/login",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST to reset with demo contents",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7d02614a-551a-49bd-a4ac-a25d3cb5e476",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"demo\", jsonData);",
+											"tests[\"demo = \" + jsonData] = true;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/v1/demo",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"demo"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST the mario.rossi thing",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "0b7eff8d-42e7-41d2-843b-ff43801a3062",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "3ffc77c6-991b-44a1-bbbb-db203d7d50c5",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"thing\", jsonData._id);",
+											"tests[\"thing = \" + jsonData._id] = true;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"_id\": \"mario.rossi\"\r\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v1/things/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"things",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get mario.rossi",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v1/things/{{thing}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"things",
+										"{{thing}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST features: heart-rate, interbeat-interval, pulse-amplitude",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "981648d0-4153-4d98-9273-49fbcfd23e04",
+										"exec": [
+											"var current_timestamp = new Date();",
+											"postman.setEnvironmentVariable(\"current_timestamp\", current_timestamp.toISOString());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n\t{\r\n\t    \"_id\": \"heart-rate\",\r\n\t    \"dimensions\": [\r\n\t    \t{\r\n\t        \t\"name\": \"value\",\r\n\t            \"unit\": \"beats-per-minute\"\r\n\t        }\r\n\t    ]\r\n\t},\r\n\t{\r\n\t    \"_id\": \"interbeat-interval\",\r\n\t    \"dimensions\": [\r\n\t    \t{\r\n\t        \t\"name\": \"value\",\r\n\t            \"unit\": \"milliseconds\"\r\n\t        }\r\n\t    ]\r\n\t},\r\n\t{\r\n\t    \"_id\": \"pulse-amplitude\",\r\n\t    \"dimensions\": [\r\n\t    \t{\r\n\t        \t\"name\": \"value\",\r\n\t            \"unit\": \"millivolts\"\r\n\t        }\r\n\t    ]\r\n\t}\r\n]"
+								},
+								"url": {
+									"raw": "{{url}}/v1/features",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"features"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET heart-rate feature",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v1/features/heart-rate",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"features",
+										"heart-rate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET interbeat-interval feature",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v1/features/interbeat-interval",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"features",
+										"interbeat-interval"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET pulse-amplitude feature",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v1/features/pulse-amplitude",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"features",
+										"pulse-amplitude"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST pulse-sensor device",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "0b7eff8d-42e7-41d2-843b-ff43801a3062",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "bf934b5a-b6e0-41dd-bd48-bdf0559f4d97",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"device\", jsonData._id);",
+											"tests[\"device = \" + jsonData._id] = true;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"_id\": \"pulse-sensor\",\r\n    \"features\": [ \"heart-rate\", \"interbeat-interval\", \"pulse-amplitude\" ]\r\n}\r\n"
+								},
+								"url": {
+									"raw": "{{url}}/v1/devices/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"devices",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET pulse-sensor device",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v1/devices/pulse-sensor",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"devices",
+										"pulse-sensor"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST the user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b8b396eb-9ab8-4738-b284-64d604978545",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": " {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\" : \"user-username-test-1\",\n\t\"password\" : \"user-password-test-1\",\n\t\"usertype\" : \"regular\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v1/users",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"users"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "API docs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6d2ffb23-3edf-49a5-bd66-1b69012c7ef6",
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"demo\", jsonData);",
+									"tests[\"demo = \" + jsonData] = true;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/swagger.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"swagger.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LOGIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b8b396eb-9ab8-4738-b284-64d604978545",
+								"exec": [
+									"postman.setEnvironmentVariable(\"token\", JSON.parse(responseBody).token);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\" : \"pulse-sensor-user-username\",\n\t\"password\" : \"pulse-sensor-user-password\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/v1/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST a measurement for mario.rossi (heart-rate)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "981648d0-4153-4d98-9273-49fbcfd23e04",
+								"exec": [
+									"var current_timestamp = new Date();",
+									"postman.setEnvironmentVariable(\"current_timestamp\", current_timestamp.toISOString());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n\t{\n\t\t\"thing\": \"mario.rossi\",\n\t\t\"feature\": \"heart-rate\",\n\t\t\"device\": \"pulse-sensor\",\n\t\t\"values\": [ \n\t\t\t\t\t{ \"value\": [\"75\"], \"delta\": \"0\" },\n\t\t\t\t\t{ \"value\": [\"76\"], \"delta\": \"10\" },\n\t\t\t\t\t{ \"value\": [\"80\"], \"delta\": \"20\" },\n\t\t\t\t\t{ \"value\": [\"75\"], \"delta\": \"30\" }\n\t\t\t\t  ]\n\t},\n\t{\n\t\t\"thing\": \"mario.rossi\",\n\t\t\"feature\": \"interbeat-interval\",\n\t\t\"device\": \"pulse-sensor\",\n\t\t\"values\": [ \n\t\t\t\t\t{ \"value\": [\"3.2\"], \"delta\": \"0\" },\n\t\t\t\t\t{ \"value\": [\"4.3\"], \"delta\": \"10\" },\n\t\t\t\t\t{ \"value\": [\"7\"],   \"delta\": \"20\" },\n\t\t\t\t\t{ \"value\": [\"3.2\"], \"delta\": \"30\" }\n\t\t\t\t  ]\n\t},\n\t{\n\t\t\"thing\": \"mario.rossi\",\n\t\t\"feature\": \"pulse-amplitude\",\n\t\t\"device\": \"pulse-sensor\",\n\t\t\"values\": [ \n\t\t\t\t\t{ \"value\": [\"15\"], \"delta\": \"0\" },\n\t\t\t\t\t{ \"value\": [\"20\"], \"delta\": \"10\" },\n\t\t\t\t\t{ \"value\": [\"17\"], \"delta\": \"20\" },\n\t\t\t\t\t{ \"value\": [\"18\"], \"delta\": \"30\" }\n\t\t\t\t  ]\n\t}\n]"
+						},
+						"url": {
+							"raw": "{{url}}/v1/measurements",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"measurements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST a measurement for mario.rossi (interbeat-interval)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "981648d0-4153-4d98-9273-49fbcfd23e04",
+								"exec": [
+									"var current_timestamp = new Date();",
+									"postman.setEnvironmentVariable(\"current_timestamp\", current_timestamp.toISOString());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"thing\": \"mario.rossi\",\n\t\"feature\": \"heart-rate\",\n\t\"device\": \"pulse-sensor\",\n\t\"values\": [ \n\t\t\t\t{ \"value\": [\"75\"], \"delta\": \"0\" },\n\t\t\t\t{ \"value\": [\"76\"], \"delta\": \"10\" },\n\t\t\t\t{ \"value\": [\"80\"], \"delta\": \"20\" },\n\t\t\t\t{ \"value\": [\"75\"], \"delta\": \"30\" }\n\t\t\t  ]\n}"
+						},
+						"url": {
+							"raw": "{{url}}/v1/measurements",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"measurements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST a measurement for mario.rossi (pulse-amplitude)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "981648d0-4153-4d98-9273-49fbcfd23e04",
+								"exec": [
+									"var current_timestamp = new Date();",
+									"postman.setEnvironmentVariable(\"current_timestamp\", current_timestamp.toISOString());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"thing\": \"mario.rossi\",\n\t\"feature\": \"pulse-amplitude\",\n\t\"device\": \"pulse-sensor\",\n\t\"values\": [ \n\t\t\t\t{ \"value\": [\"15\"], \"delta\": \"0\" },\n\t\t\t\t{ \"value\": [\"20\"], \"delta\": \"10\" },\n\t\t\t\t{ \"value\": [\"17\"], \"delta\": \"20\" },\n\t\t\t\t{ \"value\": [\"18\"], \"delta\": \"30\" }\n\t\t\t  ]\n}"
+						},
+						"url": {
+							"raw": "{{url}}/v1/measurements",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"measurements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET all measurements of mario.rossi paginated",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/v1/measurements?filter={\"thing\":\"mario.rossi\"}&limit=2&page=1 ",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"measurements"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "{\"thing\":\"mario.rossi\"}"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "page",
+									"value": "1 "
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Otmal",
+			"item": [
+				{
+					"name": "CREATE",
+					"item": [
+						{
+							"name": "LOGIN as SuperAdmin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b8b396eb-9ab8-4738-b284-64d604978545",
+										"exec": [
+											"postman.setEnvironmentVariable(\"token\", JSON.parse(responseBody).token);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\" : \"admin\",\n\t\"password\" : \"admin\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v1/login",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST the user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b8b396eb-9ab8-4738-b284-64d604978545",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": " {{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\" : \"air-quality-sensor-user-username\",\n\t\"password\" : \"air-quality-sensor-user-password\",\n\t\"usertype\" : \"regular\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v1/users",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "LOGIN",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b8b396eb-9ab8-4738-b284-64d604978545",
+										"exec": [
+											"postman.setEnvironmentVariable(\"token\", JSON.parse(responseBody).token);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\" : \"air-quality-sensor-user-username\",\n\t\"password\" : \"air-quality-sensor-user-password\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v1/login",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST features: co2",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "981648d0-4153-4d98-9273-49fbcfd23e04",
+										"exec": [
+											"var current_timestamp = new Date();",
+											"postman.setEnvironmentVariable(\"current_timestamp\", current_timestamp.toISOString());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n\t{\r\n\t    \"_id\": \"co2\",\r\n\t    \"dimensions\": [\r\n\t    \t{\r\n\t        \t\"name\": \"value\",\r\n\t            \"unit\": \"ppm\"\r\n\t        }\r\n\t    ]\r\n\t}\r\n]"
+								},
+								"url": {
+									"raw": "{{url}}/v1/features",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"features"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET features",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v1/features/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"features",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST air-quality-sensor device",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "0b7eff8d-42e7-41d2-843b-ff43801a3062",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "bf934b5a-b6e0-41dd-bd48-bdf0559f4d97",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"device\", jsonData._id);",
+											"tests[\"device = \" + jsonData._id] = true;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"_id\": \"air-quality-sensor\",\r\n    \"features\": [ \"co2\" ]\r\n}\r\n"
+								},
+								"url": {
+									"raw": "{{url}}/v1/devices/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"devices",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET air-quality-sensor device",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v1/devices/air-quality-sensor",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"devices",
+										"air-quality-sensor"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST the room thing",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "0b7eff8d-42e7-41d2-843b-ff43801a3062",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "3ffc77c6-991b-44a1-bbbb-db203d7d50c5",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"thing\", jsonData._id);",
+											"tests[\"thing = \" + jsonData._id] = true;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"_id\": \"room\"\r\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v1/things/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"things",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get the room thing",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v1/things/{{thing}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"things",
+										"{{thing}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "API docs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6d2ffb23-3edf-49a5-bd66-1b69012c7ef6",
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"demo\", jsonData);",
+									"tests[\"demo = \" + jsonData] = true;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/swagger.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"swagger.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LOGIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b8b396eb-9ab8-4738-b284-64d604978545",
+								"exec": [
+									"postman.setEnvironmentVariable(\"token\", JSON.parse(responseBody).token);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\" : \"air-quality-sensor-user-username\",\n\t\"password\" : \"air-quality-sensor-user-password\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/v1/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST a measurement for the room",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "981648d0-4153-4d98-9273-49fbcfd23e04",
+								"exec": [
+									"var current_timestamp = new Date();",
+									"postman.setEnvironmentVariable(\"current_timestamp\", current_timestamp.toISOString());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n\t\"thing\": \"room\", \n\t\"feature\": \"co2\",\n\t\"device\": \"air-quality-sensor\", \n\t\"values\": [ { \"value\": [\"800\"] } ] \n}\n "
+						},
+						"url": {
+							"raw": "{{url}}/v1/measurements",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"measurements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET all measurements of room paginated",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/v1/measurements?filter={\"thing\":\"room\"}&limit=2&page=1 ",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"measurements"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "{\"thing\":\"room\"}"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "page",
+									"value": "1 "
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Pastorino",
+			"item": [
+				{
+					"name": "CREATE",
+					"item": [
+						{
+							"name": "LOGIN as SuperAdmin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b8b396eb-9ab8-4738-b284-64d604978545",
+										"exec": [
+											"postman.setEnvironmentVariable(\"token\", JSON.parse(responseBody).token);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\" : \"admin\",\n\t\"password\" : \"admin\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v1/login",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST the user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b8b396eb-9ab8-4738-b284-64d604978545",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": " {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\" : \"impact-sensor-user-username\",\n\t\"password\" : \"impact-sensor-user-password\",\n\t\"usertype\" : \"regular\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v1/users",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "LOGIN",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b8b396eb-9ab8-4738-b284-64d604978545",
+										"exec": [
+											"postman.setEnvironmentVariable(\"token\", JSON.parse(responseBody).token);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\" : \"impact-sensor-user-username\",\n\t\"password\" : \"impact-sensor-user-password\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v1/login",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST features: impact",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "981648d0-4153-4d98-9273-49fbcfd23e04",
+										"exec": [
+											"var current_timestamp = new Date();",
+											"postman.setEnvironmentVariable(\"current_timestamp\", current_timestamp.toISOString());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n\t{\r\n\t    \"_id\": \"impact\",\r\n\t    \"dimensions\": [\r\n\t    \t{\r\n\t        \t\"name\": \"date\",\r\n\t            \"unit\": \"millis\"\r\n\t        },\r\n\t        {\r\n\t        \t\"name\": \"magnitude\",\r\n\t            \"unit\": \"g\"\r\n\t        },\r\n\t        {\r\n\t        \t\"name\": \"angleXY\",\r\n\t            \"unit\": \"degrees\"\r\n\t        },\r\n\t        {\r\n\t        \t\"name\": \"angleYZ\",\r\n\t            \"unit\": \"degrees\"\r\n\t        },\r\n\t        {\r\n\t        \t\"name\": \"angleXZ\",\r\n\t            \"unit\": \"degrees\"\r\n\t        }\r\n\t    ]\r\n\t}\r\n]"
+								},
+								"url": {
+									"raw": "{{url}}/v1/features",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"features"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET features",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v1/features/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"features",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST impact-sensor device",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "0b7eff8d-42e7-41d2-843b-ff43801a3062",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "bf934b5a-b6e0-41dd-bd48-bdf0559f4d97",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"device\", jsonData._id);",
+											"tests[\"device = \" + jsonData._id] = true;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"_id\": \"impact-sensor\",\r\n    \"features\": [ \"impact\" ]\r\n}\r\n"
+								},
+								"url": {
+									"raw": "{{url}}/v1/devices/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"devices",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET impact-sensor device",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v1/devices/impact-sensor",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"devices",
+										"impact-sensor"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST the product thing",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "0b7eff8d-42e7-41d2-843b-ff43801a3062",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "3ffc77c6-991b-44a1-bbbb-db203d7d50c5",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"thing\", jsonData._id);",
+											"tests[\"thing = \" + jsonData._id] = true;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"_id\": \"product\"\r\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v1/things/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"things",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get the product thing",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/v1/things/{{thing}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"things",
+										"{{thing}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "API docs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6d2ffb23-3edf-49a5-bd66-1b69012c7ef6",
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"demo\", jsonData);",
+									"tests[\"demo = \" + jsonData] = true;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/swagger.json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"swagger.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LOGIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b8b396eb-9ab8-4738-b284-64d604978545",
+								"exec": [
+									"postman.setEnvironmentVariable(\"token\", JSON.parse(responseBody).token);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\" : \"env-sensor-user-username\",\n\t\"password\" : \"env-sensor-user-password\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/v1/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST an impact measurement for a product",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "981648d0-4153-4d98-9273-49fbcfd23e04",
+								"exec": [
+									"var current_timestamp = new Date();",
+									"postman.setEnvironmentVariable(\"current_timestamp\", current_timestamp.toISOString());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n\t\"thing\": \"product\", \n\t\"feature\": \"impact\",\n\t\"device\": \"impact-sensor\", \n\t\"values\": [{ \"value\": [\"14989038989082\", \"2\", \"20\", \"35\", \"45\" ] }]\n}\n "
+						},
+						"url": {
+							"raw": "{{url}}/v1/measurements",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"measurements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET all measurements of product paginated",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/v1/measurements?filter={\"thing\":\"product\"}&limit=2&page=1 ",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"measurements"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "{\"thing\":\"product\"}"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "page",
+									"value": "1 "
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
